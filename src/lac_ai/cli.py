@@ -6,6 +6,7 @@ import typer
 
 from lac_ai import embed as embed_mod
 from lac_ai import ingest as ingest_mod
+from lac_ai import retrieve as retrieve_mod
 
 app = typer.Typer(add_completion=False, help="Lac_ai — small RAG over Wikipedia.")
 
@@ -28,6 +29,17 @@ def embed() -> None:
         f"embed: processed={stats['processed']} upserted={stats['upserted']} "
         f"skipped={stats['skipped']}"
     )
+
+
+@app.command()
+def search(query: str, k: int = typer.Option(None, "--k", help="Top-K override.")) -> None:
+    """Section 3: top-K retrieval (no LLM call)."""
+    hits = retrieve_mod.search(query, k=k)
+    if not hits:
+        typer.echo("(no hits)")
+        return
+    for i, h in enumerate(hits, 1):
+        typer.echo(f"{i:>2}. {h.score:.3f}  {h.title}  ({h.doc_id})")
 
 
 if __name__ == "__main__":
