@@ -1,0 +1,35 @@
+{
+  "description": "Hand-labeled evaluation queries. Each query has one or more relevant doc_ids; retrieval is judged on Recall@K and MRR.",
+  "queries": [
+    {
+      "id": "q1_direct_name",
+      "query": "Who invented the C programming language?",
+      "relevant_doc_ids": ["c_(programming_language)"],
+      "shape": "Direct lookup — language name appears in the query."
+    },
+    {
+      "id": "q2_sap_descriptor",
+      "query": "language used for SAP business applications",
+      "relevant_doc_ids": ["abap"],
+      "shape": "Descriptive — query names the use case, not the language. Tests semantic match without name overlap."
+    },
+    {
+      "id": "q3_array_finance",
+      "query": "array programming language designed for financial applications",
+      "relevant_doc_ids": ["a+_(programming_language)"],
+      "shape": "Descriptive — distinguishing traits (array + finance) only."
+    },
+    {
+      "id": "q4_dependent_types",
+      "query": "dependently typed functional language used for theorem proving",
+      "relevant_doc_ids": ["agda_(programming_language)"],
+      "shape": "Technical descriptor — relies on the embedder understanding 'dependently typed' and 'theorem proving' semantically."
+    },
+    {
+      "id": "q5_ericsson_telecom",
+      "query": "language designed at Ericsson for building concurrent telecommunication systems",
+      "relevant_doc_ids": ["erlang_(programming_language)"],
+      "shape": "Company + domain descriptor — tests retrieval on multi-fact descriptions."
+    }
+  ]
+}

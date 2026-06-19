@@ -1,0 +1,85 @@
+# Retrieval evaluation
+
+- Embedding model: `BAAI/bge-small-en-v1.5`
+- Queries: 5
+- K: 5
+
+## Aggregate
+
+| Metric | Value |
+|---|---|
+| Recall@5 | **1.000** |
+| MRR | **0.900** |
+
+## Per-query
+
+| Query | Relevant | Rank of first relevant | Recall@5 | RR |
+|---|---|---|---|---|
+| Who invented the C programming language? | `c_(programming_language)` | 1 | 1.000 | 1.000 |
+| language used for SAP business applications | `abap` | 1 | 1.000 | 1.000 |
+| array programming language designed for financial applications | `a+_(programming_language)` | 1 | 1.000 | 1.000 |
+| dependently typed functional language used for theorem proving | `agda_(programming_language)` | 2 | 1.000 | 0.500 |
+| language designed at Ericsson for building concurrent telecommunication systems | `erlang_(programming_language)` | 1 | 1.000 | 1.000 |
+
+## Top hits per query
+
+### Who invented the C programming language?
+
+Relevant: `c_(programming_language)`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.830 | `c_(programming_language)` (*) | C (programming language) |
+| 2 | 0.706 | `b_(programming_language)` | B (programming language) |
+| 3 | 0.705 | `language_h` | Language H |
+| 4 | 0.703 | `darsimco` | DARSIMCO |
+| 5 | 0.682 | `carbon_(programming_language)` | Carbon (programming language) |
+
+### language used for SAP business applications
+
+Relevant: `abap`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.771 | `abap` (*) | ABAP |
+| 2 | 0.689 | `general-purpose_programming_language` | General-purpose programming language |
+| 3 | 0.686 | `dibol` | DIBOL |
+| 4 | 0.685 | `k_(programming_language)` | K (programming language) |
+| 5 | 0.680 | `hermes_(programming_language)` | Hermes (programming language) |
+
+### array programming language designed for financial applications
+
+Relevant: `a+_(programming_language)`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.823 | `a+_(programming_language)` (*) | A+ (programming language) |
+| 2 | 0.760 | `k_(programming_language)` | K (programming language) |
+| 3 | 0.742 | `crystal_(programming_language)` | Crystal (programming language) |
+| 4 | 0.726 | `j_(programming_language)` | J (programming language) |
+| 5 | 0.725 | `janus_(time-reversible_computing_programming_language)` | Janus (time-reversible computing programming language) |
+
+### dependently typed functional language used for theorem proving
+
+Relevant: `agda_(programming_language)`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.701 | `clojure` | Clojure |
+| 2 | 0.699 | `agda_(programming_language)` (*) | Agda (programming language) |
+| 3 | 0.696 | `janus_(time-reversible_computing_programming_language)` | Janus (time-reversible computing programming language) |
+| 4 | 0.695 | `minikanren` | MiniKanren |
+| 5 | 0.692 | `joy_(programming_language)` | Joy (programming language) |
+
+### language designed at Ericsson for building concurrent telecommunication systems
+
+Relevant: `erlang_(programming_language)`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.740 | `erlang_(programming_language)` (*) | Erlang (programming language) |
+| 2 | 0.713 | `e_(programming_language)` | E (programming language) |
+| 3 | 0.674 | `caml` | Caml |
+| 4 | 0.659 | `hermes_(programming_language)` | Hermes (programming language) |
+| 5 | 0.656 | `elixir_(programming_language)` | Elixir (programming language) |
+
