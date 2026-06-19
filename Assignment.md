@@ -17,3 +17,19 @@ A public GitHub repository containing:
 - Working code that runs locally with clear setup instructions
 - A README explaining your design choices, what you would improve with more time, and the tradeoffs you made
 - A short evaluation: pick 3 to 5 test queries, measure retrieval quality with a metric of your choice, write 2 to 3 sentences on what the evaluation tells you
+
+TIMING
+
+Aim for 10 to 15 hours of work in total. Submit within 10 days, by Tuesday 23 June 2026.
+
+WHAT WE LOOK FOR
+
+- How you approach the problem
+- Code quality and structure
+- Choice of tools and the reasoning behind them
+- What you measure to validate your work
+- What you choose NOT to do and why
+
+Evaluation
+
+- 5 test queries, measure retrieval quality with a metric of your choice
