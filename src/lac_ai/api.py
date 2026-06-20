@@ -10,15 +10,27 @@ Run with: ``uvicorn lac_ai.api:app --reload``
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 from lac_ai import __version__
 from lac_ai.config import settings
+from lac_ai.embedders import get_default_embedder
 from lac_ai.generate import ask as ask_core
 from lac_ai.retrieve import search as search_core
 
-app = FastAPI(title="Lac_ai", version=__version__)
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    """Load the embedder once at startup so the first request doesn't pay for it."""
+    get_default_embedder()
+    yield
+
+
+app = FastAPI(title="Lac_ai", version=__version__, lifespan=lifespan)
 
 
 class HealthResponse(BaseModel):
