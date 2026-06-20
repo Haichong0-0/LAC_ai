@@ -3,7 +3,7 @@
   "category": "Category:Programming_languages",
   "fetched_count": 176,
   "kept_after_prune": 168,
-  "target_size": 100,
+  "target_size": 150,
   "titles": [
     {
       "title": "A+ (programming language)",
@@ -404,6 +404,206 @@
     {
       "title": "Mojo (programming language)",
       "pageid": 73729965
+    },
+    {
+      "title": "Multi-adjoint logic programming",
+      "pageid": 2099529
+    },
+    {
+      "title": "Nemerle",
+      "pageid": 30883042
+    },
+    {
+      "title": "Nim (programming language)",
+      "pageid": 45413679
+    },
+    {
+      "title": "OpenQASM",
+      "pageid": 55836870
+    },
+    {
+      "title": "PHP",
+      "pageid": 24131
+    },
+    {
+      "title": "PIC (markup language)",
+      "pageid": 8033525
+    },
+    {
+      "title": "PL/M",
+      "pageid": 543057
+    },
+    {
+      "title": "POP-2",
+      "pageid": 981616
+    },
+    {
+      "title": "PV-Wave",
+      "pageid": 17742923
+    },
+    {
+      "title": "Pencil Code (programming language)",
+      "pageid": 73001932
+    },
+    {
+      "title": "Perl",
+      "pageid": 23939
+    },
+    {
+      "title": "Petit Computer",
+      "pageid": 44572603
+    },
+    {
+      "title": "Pharo",
+      "pageid": 23490878
+    },
+    {
+      "title": "Pony (programming language)",
+      "pageid": 72321971
+    },
+    {
+      "title": "Processing",
+      "pageid": 546083
+    },
+    {
+      "title": "Programming Languages: Application and Interpretation",
+      "pageid": 23749946
+    },
+    {
+      "title": "PureBasic",
+      "pageid": 60643
+    },
+    {
+      "title": "Python (programming language)",
+      "pageid": 23862
+    },
+    {
+      "title": "Qore (programming language)",
+      "pageid": 33850384
+    },
+    {
+      "title": "Quantum Computation Language",
+      "pageid": 55836939
+    },
+    {
+      "title": "R (programming language)",
+      "pageid": 376707
+    },
+    {
+      "title": "Raku (programming language)",
+      "pageid": 1146638
+    },
+    {
+      "title": "Real-time Programming Language",
+      "pageid": 14524293
+    },
+    {
+      "title": "Rebol",
+      "pageid": 26384
+    },
+    {
+      "title": "Red (programming language)",
+      "pageid": 35733875
+    },
+    {
+      "title": "Refal",
+      "pageid": 14926151
+    },
+    {
+      "title": "Reversible programming language",
+      "pageid": 80805958
+    },
+    {
+      "title": "Rosetta Code",
+      "pageid": 42832685
+    },
+    {
+      "title": "S (programming language)",
+      "pageid": 919313
+    },
+    {
+      "title": "S-PLUS",
+      "pageid": 3830007
+    },
+    {
+      "title": "SLIP (programming language)",
+      "pageid": 4449554
+    },
+    {
+      "title": "SNOBOL",
+      "pageid": 29515
+    },
+    {
+      "title": "Scala (programming language)",
+      "pageid": 3254510
+    },
+    {
+      "title": "Scientific Vector Language",
+      "pageid": 12594048
+    },
+    {
+      "title": "Scriptol",
+      "pageid": 19949822
+    },
+    {
+      "title": "Self (programming language)",
+      "pageid": 60265
+    },
+    {
+      "title": "SenseTalk",
+      "pageid": 9096092
+    },
+    {
+      "title": "Simula",
+      "pageid": 29513
+    },
+    {
+      "title": "Smalltalk",
+      "pageid": 28319
+    },
+    {
+      "title": "Smart Pascal",
+      "pageid": 42977534
+    },
+    {
+      "title": "Source (programming language)",
+      "pageid": 62661728
+    },
+    {
+      "title": "Squeak",
+      "pageid": 37426
+    },
+    {
+      "title": "Squirrel (programming language)",
+      "pageid": 2819069
+    },
+    {
+      "title": "StaDyn (programming language)",
+      "pageid": 70802400
+    },
+    {
+      "title": "Starlark",
+      "pageid": 78553718
+    },
+    {
+      "title": "Structured text",
+      "pageid": 3432584
+    },
+    {
+      "title": "Swift (parallel scripting language)",
+      "pageid": 42946796
+    },
+    {
+      "title": "Swift (programming language)",
+      "pageid": 42946389
+    },
+    {
+      "title": "Synergy DBL",
+      "pageid": 51147321
+    },
+    {
+      "title": "TI-BASIC 83",
+      "pageid": 60386284
     }
   ]
 }

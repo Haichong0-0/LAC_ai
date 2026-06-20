@@ -25,7 +25,7 @@ import requests
 CATEGORY = "Category:Programming_languages"
 API_URL = "https://en.wikipedia.org/w/api.php"
 USER_AGENT = "Lac_ai/0.1 (https://github.com/Haichong0-0/Lac_ai; take-home RAG assignment)"
-TARGET_SIZE = 100
+TARGET_SIZE = 150
 FETCH_LIMIT = 500
 
 DENY_PREFIXES = ("List of ", "Comparison of ", "Lists of ", "Outline of ", "Index of ")
@@ -53,9 +53,7 @@ def fetch_category_members(category: str, limit: int) -> list[dict]:
             "format": "json",
             **cont,
         }
-        resp = requests.get(
-            API_URL, params=params, headers={"User-Agent": USER_AGENT}, timeout=30
-        )
+        resp = requests.get(API_URL, params=params, headers={"User-Agent": USER_AGENT}, timeout=30)
         resp.raise_for_status()
         payload = resp.json()
         members.extend(payload["query"]["categorymembers"])
