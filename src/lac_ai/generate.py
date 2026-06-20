@@ -67,26 +67,32 @@ def ask(
     k: int | None = None,
     model: str | None = None,
     client: Anthropic | None = None,
+    min_score: float | None = None,
 ) -> Answer:
-    """Retrieve top-K context and ask Claude. Returns an :class:`Answer`."""
+    """Retrieve top-K context and ask Claude. Returns an :class:`Answer`.
+
+    If the top-1 retrieval score is below ``min_score`` (or no hits at all),
+    short-circuits to the fixed IDK sentence without calling Claude. The
+    retrieved hits are still returned for debuggability so callers can see
+    what the system *considered* before refusing.
+    """
     k = k or settings.top_k
     model = model or settings.llm_model
+    min_score = settings.min_score if min_score is None else min_score
     hits = search(question, k=k)
 
-    if not hits:
+    if not hits or hits[0].score < min_score:
         return Answer(
             question=question,
             text=IDK_SENTENCE,
             citations=[],
-            retrieved=[],
+            retrieved=hits,
             model=model,
         )
 
     if client is None:
         if not settings.anthropic_api_key:
-            raise RuntimeError(
-                "ANTHROPIC_API_KEY is not set — copy .env.example to .env and fill it in."
-            )
+            raise RuntimeError("ANTHROPIC_API_KEY is not set — copy .env.example to .env and fill it in.")
         client = Anthropic(api_key=settings.anthropic_api_key)
 
     user_message = f"Context:\n\n{_format_context(hits)}\n\nQuestion: {question}"
@@ -96,9 +102,7 @@ def ask(
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )
-    answer_text = "".join(
-        block.text for block in response.content if getattr(block, "type", "") == "text"
-    ).strip()
+    answer_text = "".join(block.text for block in response.content if getattr(block, "type", "") == "text").strip()
 
     return Answer(
         question=question,

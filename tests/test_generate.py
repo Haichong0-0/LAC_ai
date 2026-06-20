@@ -41,7 +41,9 @@ def test_ask_short_circuits_to_idk_when_no_hits(seeded_collection, fake_anthropi
 
 def test_ask_calls_claude_when_hits_present(seeded_collection, fake_anthropic):
     fake_anthropic.set_reply("Apples are a fruit [apple].")
-    ans = ask("apple red sweet", client=fake_anthropic, k=2)
+    # min_score=0.0 bypasses the threshold so the toy FakeEmbedder's scores
+    # don't accidentally trip the IDK short-circuit.
+    ans = ask("apple red sweet", client=fake_anthropic, k=2, min_score=0.0)
     assert ans.text == "Apples are a fruit [apple]."
     assert "apple" in ans.citations
     assert ans.retrieved  # non-empty
@@ -50,3 +52,15 @@ def test_ask_calls_claude_when_hits_present(seeded_collection, fake_anthropic):
     sys_prompt = fake_anthropic.calls[0]["system"]
     assert "Only use facts that appear in the context" in sys_prompt
     assert IDK_SENTENCE in sys_prompt
+
+
+def test_ask_short_circuits_to_idk_when_top_score_below_threshold(seeded_collection, fake_anthropic):
+    """A borderline retrieval (top hit exists but score is low) must skip Claude."""
+    # min_score is set absurdly high — guarantees the top-1 toy score is below it.
+    ans = ask("apple red sweet", client=fake_anthropic, k=2, min_score=0.999999)
+    assert ans.text == IDK_SENTENCE
+    assert ans.citations == []
+    # Hits are still returned so the caller can inspect what was considered.
+    assert ans.retrieved, "should still surface what was considered for debuggability"
+    # Crucially, Claude was never called — that's the whole point of the threshold.
+    assert fake_anthropic.calls == []

@@ -43,7 +43,9 @@ def test_ask_returns_503_without_api_key(client, monkeypatch):
     from lac_ai.config import settings
 
     monkeypatch.setattr(settings, "anthropic_api_key", None)
-    r = client.post("/ask", json={"question": "anything"})
+    # Bypass the IDK threshold so this query reaches the API-key check.
+    monkeypatch.setattr(settings, "min_score", 0.0)
+    r = client.post("/ask", json={"question": "apple red sweet"})
     assert r.status_code == 503
     assert "ANTHROPIC_API_KEY" in r.json()["detail"]
 
