@@ -26,10 +26,7 @@ def ingest() -> None:
 def embed() -> None:
     """Section 2: normalize → chunk → embed → upsert into Chroma."""
     stats = embed_mod.build_index()
-    typer.echo(
-        f"embed: processed={stats['processed']} upserted={stats['upserted']} "
-        f"skipped={stats['skipped']}"
-    )
+    typer.echo(f"embed: processed={stats['processed']} upserted={stats['upserted']} skipped={stats['skipped']}")
 
 
 @app.command()
