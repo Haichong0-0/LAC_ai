@@ -30,6 +30,12 @@
       "query": "language designed at Ericsson for building concurrent telecommunication systems",
       "relevant_doc_ids": ["erlang_(programming_language)"],
       "shape": "Company + domain descriptor — tests retrieval on multi-fact descriptions."
+    },
+    {
+      "id": "q6_negative_out_of_corpus",
+      "query": "What is the capital of France?",
+      "relevant_doc_ids": [],
+      "shape": "Negative — answer is not in the corpus. Tests that retrieval scores stay low and that the grounded prompt triggers the fixed IDK sentence."
     }
   ]
 }

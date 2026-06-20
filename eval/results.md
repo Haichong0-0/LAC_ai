@@ -1,17 +1,17 @@
 # Retrieval evaluation
 
 - Embedding model: `BAAI/bge-small-en-v1.5`
-- Queries: 5
+- Queries: 6 (5 answerable, 1 negative)
 - K: 5
 
-## Aggregate
+## Aggregate (answerable queries only)
 
 | Metric | Value |
 |---|---|
 | Recall@5 | **1.000** |
 | MRR | **0.900** |
 
-## Per-query
+## Answerable queries
 
 | Query | Relevant | Rank of first relevant | Recall@5 | RR |
 |---|---|---|---|---|
@@ -20,6 +20,14 @@
 | array programming language designed for financial applications | `a+_(programming_language)` | 1 | 1.000 | 1.000 |
 | dependently typed functional language used for theorem proving | `agda_(programming_language)` | 2 | 1.000 | 0.500 |
 | language designed at Ericsson for building concurrent telecommunication systems | `erlang_(programming_language)` | 1 | 1.000 | 1.000 |
+
+## Negative queries (no relevant doc in corpus)
+
+Top-1 score is the system's *confidence* on an unanswerable query — lower is better (less false confidence). The grounded prompt in `generate.ask` is what turns this signal into the fixed IDK sentence.
+
+| Query | Top-1 doc_id | Top-1 score |
+|---|---|---|
+| What is the capital of France? | `caml` | 0.486 |
 
 ## Top hits per query
 
@@ -82,4 +90,16 @@ Relevant: `erlang_(programming_language)`
 | 3 | 0.674 | `caml` | Caml |
 | 4 | 0.659 | `hermes_(programming_language)` | Hermes (programming language) |
 | 5 | 0.656 | `elixir_(programming_language)` | Elixir (programming language) |
+
+### What is the capital of France?
+
+Relevant: `(none — negative query)`
+
+| Rank | Score | doc_id | Title |
+|---|---|---|---|
+| 1 | 0.486 | `caml` | Caml |
+| 2 | 0.446 | `f_(programming_language)` | F (programming language) |
+| 3 | 0.441 | `comal` | COMAL |
+| 4 | 0.434 | `bliss` | BLISS |
+| 5 | 0.432 | `dibol` | DIBOL |
 
