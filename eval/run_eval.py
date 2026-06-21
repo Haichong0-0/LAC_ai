@@ -8,6 +8,10 @@ Run from the project root:
 
     uv run python eval/run_eval.py
     uv run python eval/run_eval.py --k 5 --out eval/results.md
+
+Pass ``--ask`` to *also* run the full RAG path (retrieve + Claude grounded
+answer) per query and include the actual answer text + citations in the
+markdown output. This spends Claude tokens; default is retrieval-only.
 """
 
 from __future__ import annotations
@@ -18,6 +22,7 @@ from pathlib import Path
 
 from lac_ai.config import settings
 from lac_ai.embedders import SentenceTransformerEmbedder
+from lac_ai.generate import ask
 from lac_ai.retrieve import search
 
 EVAL_DIR = Path(__file__).resolve().parent
@@ -37,7 +42,7 @@ def recall_at_k(hit_ids: list[str], relevant: set[str]) -> float:
     return len(set(hit_ids) & relevant) / len(relevant)
 
 
-def evaluate(k: int) -> dict:
+def evaluate(k: int, with_answers: bool = False) -> dict:
     queries = json.loads(QUERIES_PATH.read_text(encoding="utf-8"))["queries"]
     embedder = SentenceTransformerEmbedder()
 
@@ -53,6 +58,17 @@ def evaluate(k: int) -> dict:
         rank_of_first = next((i for i, hid in enumerate(hit_ids, 1) if hid in relevant), None)
         top1_score = hits[0].score if hits else None
 
+        answer_payload = None
+        if with_answers:
+            # Goes through the same generate.ask() the API and CLI use, including
+            # the LAC_MIN_SCORE threshold and the IDK short-circuit.
+            ans = ask(q["query"], k=k)
+            answer_payload = {
+                "text": ans.text,
+                "citations": ans.citations,
+                "model": ans.model,
+            }
+
         rows.append(
             {
                 "id": q["id"],
@@ -64,6 +80,7 @@ def evaluate(k: int) -> dict:
                 "recall_at_k": r_at_k,
                 "reciprocal_rank": rr,
                 "top1_score": round(top1_score, 3) if top1_score is not None else None,
+                "answer": answer_payload,
             }
         )
 
@@ -73,9 +90,12 @@ def evaluate(k: int) -> dict:
     mean_recall = sum(r["recall_at_k"] for r in answerable) / n_ans if n_ans else 0.0
     mrr = sum(r["reciprocal_rank"] for r in answerable) / n_ans if n_ans else 0.0
 
+    llm_model = rows[0]["answer"]["model"] if with_answers and rows else None
+
     return {
         "k": k,
         "embedding_model": settings.embedding_model,
+        "llm_model": llm_model,
         "n_queries": len(rows),
         "n_answerable": n_ans,
         "n_negative": len(negatives),
@@ -93,6 +113,10 @@ def format_markdown(result: dict) -> str:
         f"- Embedding model: `{result['embedding_model']}`",
         f"- Queries: {result['n_queries']} ({result['n_answerable']} answerable, {result['n_negative']} negative)",
         f"- K: {k}",
+    ]
+    if result.get("llm_model"):
+        lines.append(f"- LLM (for `--ask`): `{result['llm_model']}`")
+    lines += [
         "",
         "## Aggregate (answerable queries only)",
         "",
@@ -148,6 +172,20 @@ def format_markdown(result: dict) -> str:
         for i, h in enumerate(r["top_hits"], 1):
             marker = " (*)" if h["doc_id"] in r["relevant"] else ""
             lines.append(f"| {i} | {h['score']:.3f} | `{h['doc_id']}`{marker} | {h['title']} |")
+        if r.get("answer"):
+            cites = (
+                ", ".join(f"`{c}`" for c in r["answer"]["citations"])
+                if r["answer"]["citations"]
+                else "_(none extracted)_"
+            )
+            lines += [
+                "",
+                "**Claude answer:**",
+                "",
+                "> " + r["answer"]["text"].replace("\n", "\n> "),
+                "",
+                f"**Citations:** {cites}",
+            ]
         lines.append("")
 
     return "\n".join(lines) + "\n"
@@ -157,11 +195,30 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--k", type=int, default=settings.top_k)
     parser.add_argument("--out", type=Path, default=None, help="Optional markdown output path.")
+    parser.add_argument(
+        "--ask",
+        action="store_true",
+        help="Also call Claude per query and include the grounded answer in results.md. Spends tokens.",
+    )
     args = parser.parse_args()
 
-    result = evaluate(args.k)
+    if args.ask and not settings.anthropic_api_key:
+        print("ERROR: --ask requires ANTHROPIC_API_KEY in your env or .env file.", flush=True)
+        return 2
+
+    result = evaluate(args.k, with_answers=args.ask)
     md = format_markdown(result)
-    print(md)
+    # Console may be cp1252 on Windows — write to file with UTF-8 and only
+    # print a short summary to stdout when --ask is set (the answers can have
+    # non-ASCII chars that crash the legacy console).
+    if args.ask:
+        print(
+            f"Eval done. Recall@{args.k}={result['aggregate']['recall_at_k']:.3f}, "
+            f"MRR={result['aggregate']['mrr']:.3f}, n_queries={result['n_queries']}.",
+            flush=True,
+        )
+    else:
+        print(md)
 
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)

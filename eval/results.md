@@ -3,6 +3,7 @@
 - Embedding model: `BAAI/bge-small-en-v1.5`
 - Queries: 6 (5 answerable, 1 negative)
 - K: 5
+- LLM (for `--ask`): `claude-haiku-4-5`
 
 ## Aggregate (answerable queries only)
 
@@ -43,6 +44,12 @@ Relevant: `c_(programming_language)`
 | 4 | 0.703 | `darsimco` | DARSIMCO |
 | 5 | 0.689 | `slip_(programming_language)` | SLIP (programming language) |
 
+**Claude answer:**
+
+> C was created by Dennis Ritchie [c_(programming_language)]. It was originally developed at Bell Labs by Ritchie between 1972 and 1973 as a successor to the programming language B [c_(programming_language)].
+
+**Citations:** `c_(programming_language)`
+
 ### language used for SAP business applications
 
 Relevant: `abap`
@@ -54,6 +61,12 @@ Relevant: `abap`
 | 3 | 0.689 | `general-purpose_programming_language` | General-purpose programming language |
 | 4 | 0.686 | `dibol` | DIBOL |
 | 5 | 0.685 | `k_(programming_language)` | K (programming language) |
+
+**Claude answer:**
+
+> ABAP (Advanced Business Application Programming) is the language used for SAP business applications [abap]. It is positioned, alongside Java, as the language for programming the SAP NetWeaver Application Server, which is part of the SAP NetWeaver platform for building business applications [abap]. ABAP was created by the German software company SAP SE [abap].
+
+**Citations:** `abap`
 
 ### array programming language designed for financial applications
 
@@ -67,6 +80,14 @@ Relevant: `a+_(programming_language)`
 | 4 | 0.742 | `crystal_(programming_language)` | Crystal (programming language) |
 | 5 | 0.726 | `j_(programming_language)` | J (programming language) |
 
+**Claude answer:**
+
+> Based on the context provided, **A+** is described as "a high-level, interactive, interpreted array programming language designed for numerically intensive applications, especially those found in financial applications" [a+_(programming_language)].
+> 
+> Additionally, **K** is also an array programming language with financial applications. It is "a proprietary array processing programming language" that "serves as the foundation for kdb+, an in-memory, column-based database, and other related financial products" [k_(programming_language)].
+
+**Citations:** `a+_(programming_language)`, `k_(programming_language)`
+
 ### dependently typed functional language used for theorem proving
 
 Relevant: `agda_(programming_language)`
@@ -78,6 +99,12 @@ Relevant: `agda_(programming_language)`
 | 3 | 0.701 | `clojure` | Clojure |
 | 4 | 0.699 | `agda_(programming_language)` (*) | Agda (programming language) |
 | 5 | 0.696 | `janus_(time-reversible_computing_programming_language)` | Janus (time-reversible computing programming language) |
+
+**Claude answer:**
+
+> Based on the provided context, **Agda** is a dependently typed functional programming language used for theorem proving [agda_(programming_language)]. It is a proof assistant based on the propositions-as-types paradigm (Curry–Howard correspondence), where proofs are written in a functional programming style [agda_(programming_language)].
+
+**Citations:** `agda_(programming_language)`
 
 ### language designed at Ericsson for building concurrent telecommunication systems
 
@@ -91,6 +118,12 @@ Relevant: `erlang_(programming_language)`
 | 4 | 0.674 | `caml` | Caml |
 | 5 | 0.668 | `reversible_programming_language` | Reversible programming language |
 
+**Claude answer:**
+
+> Erlang is the programming language designed at Ericsson for building concurrent telecommunication systems [erlang_(programming_language)]. It was originally developed as proprietary software within Ericsson by Joe Armstrong, Robert Virding, and Mike Williams in 1986, and later released as free and open-source software in 1998 [erlang_(programming_language)]. The Erlang runtime system is specifically designed for distributed, fault-tolerant, and highly available non-stop applications [erlang_(programming_language)].
+
+**Citations:** `erlang_(programming_language)`
+
 ### What is the capital of France?
 
 Relevant: `(none — negative query)`
@@ -102,4 +135,10 @@ Relevant: `(none — negative query)`
 | 3 | 0.446 | `f_(programming_language)` | F (programming language) |
 | 4 | 0.441 | `comal` | COMAL |
 | 5 | 0.434 | `bliss` | BLISS |
+
+**Claude answer:**
+
+> I don't know based on the provided context.
+
+**Citations:** _(none extracted)_
 
