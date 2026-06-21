@@ -27,7 +27,7 @@ Top-1 score is the system's *confidence* on an unanswerable query — lower is b
 
 | Query | Top-1 doc_id | Top-1 score |
 |---|---|---|
-| What is the capital of France? | `charm_(programming_language)` | 0.400 |
+| What is the capital of France? | `python_(programming_language)` | 0.412 |
 
 ## Top hits per query
 
@@ -51,9 +51,9 @@ Relevant: `abap`
 |---|---|---|---|
 | 1 | 0.750 | `abap` (*) | ABAP |
 | 2 | 0.671 | `dibol` | DIBOL |
-| 3 | 0.638 | `general-purpose_programming_language` | General-purpose programming language |
-| 4 | 0.628 | `caml` | Caml |
-| 5 | 0.623 | `corbascript` | CorbaScript |
+| 3 | 0.648 | `scriptol` | Scriptol |
+| 4 | 0.638 | `general-purpose_programming_language` | General-purpose programming language |
+| 5 | 0.628 | `synergy_dbl` | Synergy DBL |
 
 ### array programming language designed for financial applications
 
@@ -76,8 +76,8 @@ Relevant: `agda_(programming_language)`
 | 1 | 0.723 | `fx-87` | FX-87 |
 | 2 | 0.717 | `agda_(programming_language)` (*) | Agda (programming language) |
 | 3 | 0.674 | `janus_(time-reversible_computing_programming_language)` | Janus (time-reversible computing programming language) |
-| 4 | 0.662 | `cameleon_(programming_language)` | Cameleon (programming language) |
-| 5 | 0.660 | `hermes_(programming_language)` | Hermes (programming language) |
+| 4 | 0.669 | `refal` | Refal |
+| 5 | 0.662 | `cameleon_(programming_language)` | Cameleon (programming language) |
 
 ### language designed at Ericsson for building concurrent telecommunication systems
 
@@ -97,9 +97,9 @@ Relevant: `(none — negative query)`
 
 | Rank | Score | doc_id | Title |
 |---|---|---|---|
-| 1 | 0.400 | `charm_(programming_language)` | Charm (programming language) |
-| 2 | 0.398 | `caml` | Caml |
-| 3 | 0.388 | `comal` | COMAL |
-| 4 | 0.387 | `go_(programming_language)` | Go (programming language) |
-| 5 | 0.385 | `javascript` | JavaScript |
+| 1 | 0.412 | `python_(programming_language)` | Python (programming language) |
+| 2 | 0.400 | `charm_(programming_language)` | Charm (programming language) |
+| 3 | 0.398 | `caml` | Caml |
+| 4 | 0.388 | `comal` | COMAL |
+| 5 | 0.387 | `go_(programming_language)` | Go (programming language) |
 
